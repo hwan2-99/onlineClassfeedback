@@ -1,0 +1,29 @@
+.wrapper {
+  height: auto;
+  display: flex;
+}
+
+.list-wrapper {
+  text-align: center;
+  width: 20%;
+  padding: 10px;
+  background-color: rgb(150, 150, 150);
+  margin: 2px;
+  border-radius: 10px;
+}
+
+.list {
+  padding: 10px;
+  font-size: 15px;
+  background-color: rgb(230, 230, 230);
+  border-radius: 20px;
+  list-style: none;
+}
+
+.course-wrapper {
+  width: 80%;
+  padding: 10px;
+  margin: 2px;
+  background-color: rgb(150, 150, 150);
+  border-radius: 10px;
+}
