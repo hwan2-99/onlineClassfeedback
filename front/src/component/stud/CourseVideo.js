@@ -14,6 +14,12 @@ import studHandler from "../../lib/handler/studHandler";
 import QASend from "../form/QASend";
 import dateToUse from "../../lib/date";
 import ReactPlayer from "react-player";
+import restImage from "../../image/rest-img.png";
+import problemImage from "../../image/problem-img.png";
+import noteImage from "../../image/note-img.png";
+import qualityImage from "../../image/quality-img.png";
+import SoundWarnImage from "../../image/sound-warn-img.png";
+import VideoWarnImage from "../../image/video-warn-img.png";
 
 const CourseVideo = () => {
   const location = useLocation();
@@ -27,6 +33,7 @@ const CourseVideo = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [showControls, setShowControls] = useState(false);
   const [showTextInput, setShowTextInput] = useState(false);
+  const [problemText, setProblemText] = useState("");
   const [showButtons, setShowButtons] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [noteText, setNoteText] = useState("");
@@ -37,12 +44,13 @@ const CourseVideo = () => {
       muted: !prevState.muted,
     }));
   };
-  const handleRestButtonClick = () => {
+  const handleRestButtonClick = async () => {
     setShowButtons(false);
     setShowPlayButton(true);
     setShowControls(true);
+    await studHandler.postProblem("rest", "휴식", video_num);
+
     setButtonList([]); // 버튼 목록 초기화
-    setShowTextInput(true); // Rest 버튼을 눌렀을 때 입력 상자 표시
   };
 
   const handleProblemButtonClick = () => {
@@ -53,10 +61,16 @@ const CourseVideo = () => {
     setButtonList([]); // 버튼 목록 초기화
   };
 
-  const handleTextSubmit = () => {
+  const handleTextSubmit = async () => {
     setShowPlayButton(true); // 재생 버튼 보임
     setShowTextInput(false); // 텍스트 입력 상자 숨김
     setShowControls(true); // 컨트롤 바 보임
+    // Use the problemText value as needed (e.g., send it to the server)
+    console.log("Submitted problem:", problemText);
+    await studHandler.postProblem("problem", problemText, video_num);
+
+    // Clear the input value
+    setProblemText("");
   };
 
   const handleNoteButtonClick = () => {
@@ -67,23 +81,41 @@ const CourseVideo = () => {
     setButtonList([]); // 버튼 목록 초기화
     setShowNoteInput(true); // 입력 폼을 보이도록 설정
   };
+  const [showQualityButtons, setShowQualityButtons] = useState(false); // Quality 버튼 목록 상태 추가
 
   const handleQualityButtonClick = () => {
+    setButtonList([]);
+    setShowPlayButton(false);
+    setShowControls(true);
+    setShowQualityButtons(true); // Quality 버튼 목록을 보이도록 설정
+  };
+  const handleQualitySoundClick = async () => {
     setShowButtons(false);
     setShowPlayButton(true);
     setShowControls(true);
+    await studHandler.postProblem("quality", "영상 음질 문제", video_num);
+
+    setButtonList([]); // 버튼 목록 초기화
+  };
+  const handleQualityVideoClick = async () => {
+    setShowButtons(false);
+    setShowPlayButton(true);
+    setShowControls(true);
+    await studHandler.postProblem("quality", "영상 화질 문제", video_num);
+
     setButtonList([]); // 버튼 목록 초기화
   };
   const playHandler = () => {
     setShowButtons(false);
     setShowControls(false); // 버튼이 사라지면 컨트롤 바도 사라지도록 설정
   };
-  const handleNoteTextSubmit = () => {
+  const handleNoteTextSubmit = async () => {
     // 재생 버튼을 보이도록 상태 변경
     setShowPlayButton(true);
     // input 폼을 숨김
     setShowNoteInput(false);
     console.log("Submitted note:", noteText);
+    await studHandler.postProblem("note", noteText, video_num);
     setShowPlayButton(true); // 재생 버튼을 보임
     setShowTextInput(false); // 텍스트 입력 상자를 숨김
     setShowControls(true); // 컨트롤 바를 보임
@@ -100,7 +132,8 @@ const CourseVideo = () => {
         className={classes["video-button"]}
         onClick={handleRestButtonClick}
       >
-        Rest
+        <img src={restImage} alt="Rest" style={{ width: "50px" }} />
+        <p>Rest</p>
       </Button>
     );
 
@@ -110,7 +143,8 @@ const CourseVideo = () => {
         className={classes["video-button"]}
         onClick={handleProblemButtonClick}
       >
-        Problem
+        <img src={problemImage} alt="Problem" style={{ width: "50px" }} />
+        <p>Problem</p>
       </Button>
     );
 
@@ -120,7 +154,8 @@ const CourseVideo = () => {
         className={classes["video-button"]}
         onClick={handleNoteButtonClick}
       >
-        Note
+        <img src={noteImage} alt="Note" style={{ height: "50px" }} />
+        <p>Note</p>
       </Button>
     );
 
@@ -130,7 +165,8 @@ const CourseVideo = () => {
         className={classes["video-button"]}
         onClick={handleQualityButtonClick}
       >
-        Quality
+        <img src={qualityImage} alt="Quality" style={{ width: "50px" }} />
+        <p>Quality</p>
       </Button>
     );
 
@@ -275,6 +311,40 @@ const CourseVideo = () => {
             onPause={pauseHandler}
             onProgress={onProgressHandler}
           />
+          {showQualityButtons && (
+            <div className={classes["video-controls"]}>
+              <Button
+                className={classes["video-button"]}
+                onClick={async () => {
+                  setShowQualityButtons(false); // 수정: Quality 버튼 클릭 시 showQualityButtons를 false로 설정하여 Quality 버튼 숨김
+                  setShowPlayButton(true);
+                  await handleQualitySoundClick();
+                }}
+              >
+                <img
+                  src={SoundWarnImage}
+                  alt="Rest"
+                  style={{ width: "50px" }}
+                />
+                <p>Sound</p>
+              </Button>
+              <Button
+                className={classes["video-button"]}
+                onClick={async () => {
+                  setShowQualityButtons(false); // 수정: Quality 버튼 클릭 시 showQualityButtons를 false로 설정하여 Quality 버튼 숨김
+                  setShowPlayButton(true);
+                  await handleQualityVideoClick();
+                }}
+              >
+                <img
+                  src={VideoWarnImage}
+                  alt="Rest"
+                  style={{ width: "50px" }}
+                />
+                <p>video</p>
+              </Button>
+            </div>
+          )}
           {showButtons && ( //비디오 컨트롤 버튼
             <div className={classes["video-controls"]}>
               <div className={classes["control-item"]}>
@@ -297,13 +367,17 @@ const CourseVideo = () => {
                 <div>
                   {showTextInput ? (
                     <div>
-                      <input type="text" onChange={handleTextChange} />
+                      <input
+                        type="text"
+                        onChange={(e) => setProblemText(e.target.value)}
+                        value={problemText}
+                      />
                       <Button onClick={handleTextSubmit}>Submit</Button>
                     </div>
                   ) : showPlayButton ? (
                     <Button
                       key="play"
-                      className={classes["video-button"]}
+                      className={classes["video-button2"]}
                       onClick={playPauseHandler}
                     >
                       Play

@@ -58,18 +58,20 @@ const studApi = {
     });
   },
 
-  postProblem: async (info, video_num) => {
+  postProblem: async (type, comment, video_num) => {
+    console.log("fetch 확인");
     try {
-      const response = await fetch(
-        CREATE_API + "problem?video_num=" + video_num,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(info),
-        }
-      );
+      const response = await fetch(CREATE_API + "stud/problem", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type: type,
+          comment: comment,
+          video_num: video_num,
+        }),
+      });
 
       const result = await response.json();
 
@@ -84,4 +86,5 @@ const studApi = {
     }
   },
 };
+
 export default studApi;

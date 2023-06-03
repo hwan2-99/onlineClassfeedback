@@ -114,13 +114,13 @@ module.exports = {
     }
   },
 
-  postProblem: async (info, video_num) => {
+  postProblem: async (info) => {
     console.log("problem 정보", info);
     try {
       const conn = await pool.getConnection();
       console.log(info);
 
-      const { type, comment } = info;
+      const { type, comment, video_num } = info;
 
       const query = `INSERT INTO problem (video_num, type, comment) VALUES (?, ?, ?)`;
 

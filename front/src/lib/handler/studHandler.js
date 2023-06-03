@@ -107,9 +107,11 @@ const studHandler = {
     }
   },
 
-  postProblem: async (info, video_num) => {
+  postProblem: async (type, comment, video_num) => {
+    console.log("핸들러 확인");
     try {
-      let apiResult = await studApi.postProblem(info, video_num);
+      let apiResult = await studApi.postProblem(type, comment, video_num);
+      console.log(video_num);
 
       const result = apiResult;
 

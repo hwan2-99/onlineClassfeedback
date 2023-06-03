@@ -19,7 +19,11 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // 모든 출처 허용 옵션. true 를 써도 된다.
+  })
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,7 +38,7 @@ app.use("/stud", studRouter);
 app.use("/video", express.static("uploads/video"));
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Origin", "http://localhost:3001");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
   next();
