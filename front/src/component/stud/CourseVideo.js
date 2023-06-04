@@ -48,7 +48,18 @@ const CourseVideo = () => {
     setShowButtons(false);
     setShowPlayButton(true);
     setShowControls(true);
-    await studHandler.postProblem("rest", "휴식", video_num);
+    const currentTime = videoRef.current.getCurrentTime(); // 동영상의 현재 시간 가져오기
+    // 분과 초 계산
+    const minutes = Math.floor(currentTime / 60);
+    const seconds = Math.floor(currentTime % 60);
+
+    // 분과 초를 문자열로 변환
+    const minutesStr = minutes.toString().padStart(2, "0");
+    const secondsStr = seconds.toString().padStart(2, "0");
+
+    const formattedTime = `${minutesStr}:${secondsStr}`;
+    console.log(formattedTime);
+    await studHandler.postProblem("rest", "휴식", video_num, formattedTime);
 
     setButtonList([]); // 버튼 목록 초기화
   };

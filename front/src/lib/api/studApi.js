@@ -58,7 +58,7 @@ const studApi = {
     });
   },
 
-  postProblem: async (type, comment, video_num) => {
+  postProblem: async (type, comment, video_num, formattedTime) => {
     console.log("fetch 확인");
     try {
       const response = await fetch(CREATE_API + "stud/problem", {
@@ -70,6 +70,7 @@ const studApi = {
           type: type,
           comment: comment,
           video_num: video_num,
+          formattedTime: formattedTime,
         }),
       });
 

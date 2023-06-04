@@ -83,11 +83,12 @@ router.get("/video/list/:classnum", async (req, res) => {
 router.post("/problem", async (req, res) => {
   console.log("컨트롤러 연결확인");
   try {
-    const { video_num, type, comment } = req.body;
+    const { video_num, type, comment, formattedTime } = req.body;
     const result = await studService.postProblem({
       type: type,
       comment: comment,
       video_num: video_num,
+      formattedTime: formattedTime,
     });
     return res.status(200).json({
       status: 200,

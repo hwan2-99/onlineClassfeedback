@@ -120,11 +120,16 @@ module.exports = {
       const conn = await pool.getConnection();
       console.log(info);
 
-      const { type, comment, video_num } = info;
+      const { type, comment, video_num, formattedTime } = info;
 
-      const query = `INSERT INTO problem (video_num, type, comment) VALUES (?, ?, ?)`;
+      const query = `INSERT INTO problem (video_num, type, comment,problem_time) VALUES (?, ?, ?,?)`;
 
-      const [result] = await conn.query(query, [video_num, type, comment]);
+      const [result] = await conn.query(query, [
+        video_num,
+        type,
+        comment,
+        formattedTime,
+      ]);
       conn.release();
       return result.affectedRows;
     } catch (error) {
