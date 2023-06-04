@@ -76,9 +76,27 @@ const CourseVideo = () => {
     setShowPlayButton(true); // 재생 버튼 보임
     setShowTextInput(false); // 텍스트 입력 상자 숨김
     setShowControls(true); // 컨트롤 바 보임
+    const currentTime = videoRef.current.getCurrentTime(); // 동영상의 현재 시간 가져오기
+    // 시, 분, 초 계산
+    const hours = Math.floor(currentTime / 3600);
+    const minutes = Math.floor((currentTime % 3600) / 60);
+    const seconds = Math.floor(currentTime % 60);
+
+    // 시, 분, 초를 문자열로 변환
+    const hoursStr = hours.toString().padStart(2, "0");
+    const minutesStr = minutes.toString().padStart(2, "0");
+    const secondsStr = seconds.toString().padStart(2, "0");
+
+    const formattedTime = `${hoursStr}:${minutesStr}:${secondsStr}`;
+    console.log(formattedTime);
     // Use the problemText value as needed (e.g., send it to the server)
     console.log("Submitted problem:", problemText);
-    await studHandler.postProblem("problem", problemText, video_num);
+    await studHandler.postProblem(
+      "problem",
+      problemText,
+      video_num,
+      formattedTime
+    );
 
     // Clear the input value
     setProblemText("");
@@ -104,7 +122,25 @@ const CourseVideo = () => {
     setShowButtons(false);
     setShowPlayButton(true);
     setShowControls(true);
-    await studHandler.postProblem("quality", "영상 음질 문제", video_num);
+    const currentTime = videoRef.current.getCurrentTime(); // 동영상의 현재 시간 가져오기
+    // 시, 분, 초 계산
+    const hours = Math.floor(currentTime / 3600);
+    const minutes = Math.floor((currentTime % 3600) / 60);
+    const seconds = Math.floor(currentTime % 60);
+
+    // 시, 분, 초를 문자열로 변환
+    const hoursStr = hours.toString().padStart(2, "0");
+    const minutesStr = minutes.toString().padStart(2, "0");
+    const secondsStr = seconds.toString().padStart(2, "0");
+
+    const formattedTime = `${hoursStr}:${minutesStr}:${secondsStr}`;
+    console.log(formattedTime);
+    await studHandler.postProblem(
+      "quality",
+      "영상 음질 문제",
+      video_num,
+      formattedTime
+    );
 
     setButtonList([]); // 버튼 목록 초기화
   };
@@ -112,7 +148,25 @@ const CourseVideo = () => {
     setShowButtons(false);
     setShowPlayButton(true);
     setShowControls(true);
-    await studHandler.postProblem("quality", "영상 화질 문제", video_num);
+    const currentTime = videoRef.current.getCurrentTime(); // 동영상의 현재 시간 가져오기
+    // 시, 분, 초 계산
+    const hours = Math.floor(currentTime / 3600);
+    const minutes = Math.floor((currentTime % 3600) / 60);
+    const seconds = Math.floor(currentTime % 60);
+
+    // 시, 분, 초를 문자열로 변환
+    const hoursStr = hours.toString().padStart(2, "0");
+    const minutesStr = minutes.toString().padStart(2, "0");
+    const secondsStr = seconds.toString().padStart(2, "0");
+
+    const formattedTime = `${hoursStr}:${minutesStr}:${secondsStr}`;
+    console.log(formattedTime);
+    await studHandler.postProblem(
+      "quality",
+      "영상 화질 문제",
+      video_num,
+      formattedTime
+    );
 
     setButtonList([]); // 버튼 목록 초기화
   };
@@ -126,7 +180,20 @@ const CourseVideo = () => {
     // input 폼을 숨김
     setShowNoteInput(false);
     console.log("Submitted note:", noteText);
-    await studHandler.postProblem("note", noteText, video_num);
+    const currentTime = videoRef.current.getCurrentTime(); // 동영상의 현재 시간 가져오기
+    // 시, 분, 초 계산
+    const hours = Math.floor(currentTime / 3600);
+    const minutes = Math.floor((currentTime % 3600) / 60);
+    const seconds = Math.floor(currentTime % 60);
+
+    // 시, 분, 초를 문자열로 변환
+    const hoursStr = hours.toString().padStart(2, "0");
+    const minutesStr = minutes.toString().padStart(2, "0");
+    const secondsStr = seconds.toString().padStart(2, "0");
+
+    const formattedTime = `${hoursStr}:${minutesStr}:${secondsStr}`;
+    console.log(formattedTime);
+    await studHandler.postProblem("note", noteText, video_num, formattedTime);
     setShowPlayButton(true); // 재생 버튼을 보임
     setShowTextInput(false); // 텍스트 입력 상자를 숨김
     setShowControls(true); // 컨트롤 바를 보임

@@ -4,6 +4,7 @@ import BasicModal from "../../layout/BasicModal";
 import SectionAdd from "../form/SectionAdd";
 import QaManage from "./QaManage";
 import classes from "./video.module.css";
+import FeedBack from "./FeedBack";
 
 const Video = (props) => {
   const { order, title, uploadDate, views } = props;
@@ -27,6 +28,9 @@ const Video = (props) => {
           <SectionAdd video_num={props.num} />
         </BasicModal>
         <Button>강의 정보 관리</Button>
+        <BasicModal title={"피드백"}>
+          <FeedBack video_num={props.num} />
+        </BasicModal>
       </div>
 
       <hr />

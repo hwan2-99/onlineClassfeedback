@@ -138,5 +138,29 @@ router.post("/upload/video", async (req, res) => {
     });
   });
 });
+router.get("/problems/:video_num/:type", async (req, res) => {
+  const { video_num, type } = req.params;
+  console.log("컨트롤러 체크");
+
+  try {
+    const result = await getProblemListByType(video_num, type);
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/problems/:video_num", async (req, res) => {
+  const { video_num } = req.params;
+
+  try {
+    const result = await getProblemListByType(video_num);
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 module.exports = router;

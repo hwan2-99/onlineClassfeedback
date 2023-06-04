@@ -1,4 +1,4 @@
-const CREATE_API = "http://localhost:5000/";
+const CREATE_API = "http://localhost:3000/";
 
 const prof = {
   classOpen: (Info) => {
@@ -67,7 +67,7 @@ const prof = {
     });
   },
 
-  postVideoInfo: function (info) {
+  postVideoInfo: function(info) {
     return fetch(CREATE_API + "prof/video/info", {
       method: "post",
       headers: {
@@ -77,7 +77,7 @@ const prof = {
     });
   },
 
-  postVideoSection: function (info) {
+  postVideoSection: function(info) {
     return fetch(CREATE_API + "prof/video/section", {
       method: "post",
       headers: {
@@ -87,13 +87,32 @@ const prof = {
     });
   },
 
-  updateQAAnswer: function (info) {
+  updateQAAnswer: function(info) {
     return fetch(CREATE_API + "prof/section/update", {
       method: "post",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(info),
+    });
+  },
+
+  getProblemLists: (video_num) => {
+    return fetch(CREATE_API + "problems/" + video_num, {
+      method: "get",
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+  },
+
+  getProblemListByType: (video_num, type) => {
+    console.log("fetch 체크");
+    return fetch(CREATE_API + "problems/" + video_num + "/" + type, {
+      method: "get",
+      headers: {
+        "Content-type": "application/json",
+      },
     });
   },
 };

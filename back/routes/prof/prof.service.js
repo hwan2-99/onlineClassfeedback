@@ -109,21 +109,6 @@ module.exports = {
       return error;
     }
   },
-  //비디오별 문제점 불러오기
-  getProblemList: async (num) => {
-    try {
-      const conn = await pool.getConnection();
-
-      const query = `Select * from problem where video_num = ?`;
-
-      const [result] = await conn.query(query, [num]);
-      conn.release();
-      return result;
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  },
 
   getClassInfo: async (num) => {
     try {
@@ -177,6 +162,34 @@ module.exports = {
       const query = `Select * from video where course_num=${num}`;
 
       const [result] = await conn.query(query);
+      conn.release();
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  getProblemListByType: async (video_num, type) => {
+    try {
+      const conn = await pool.getConnection();
+
+      const query = `Select * from problem where video_num = ? and type = ?`;
+
+      const [result] = await conn.query(query, [video_num, type]);
+      conn.release();
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  getProblemLists: async (video_num) => {
+    try {
+      const conn = await pool.getConnection();
+
+      const query = `Select * from problem where video_num = ?`;
+
+      const [result] = await conn.query(query, [video_num]);
       conn.release();
       return result;
     } catch (error) {

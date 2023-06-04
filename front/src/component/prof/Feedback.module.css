@@ -1,0 +1,22 @@
+.TabMenu {
+  background-color: #dcdcdc;
+  align-items: center;
+  margin-bottom: 7rem;
+}
+
+ul {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: rgb(185, 186, 187);
+}
+
+& div.desc {
+  text-align: center;
+}
+
+ul,
+li {
+  list-style: none;
+}

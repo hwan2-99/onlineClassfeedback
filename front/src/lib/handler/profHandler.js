@@ -140,6 +140,33 @@ const profHandler = {
       console.log(error);
     }
   },
+
+  getProblemLists: async (video_num) => {
+    try {
+      let apiResult = await prof.getProblemLists(video_num);
+      const result = await apiResult.json();
+
+      if (result.status === SUCCESS) {
+        return result;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  getProblemListByType: async (video_num, type) => {
+    console.log("핸들러 체크");
+    try {
+      let apiResult = await prof.getProblemListByType(video_num, type);
+      const result = await apiResult.json();
+
+      if (result.status === SUCCESS) {
+        return result;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 export default profHandler;
