@@ -170,6 +170,7 @@ module.exports = {
     }
   },
   getProblemListByType: async (video_num, type) => {
+    console.log("서비스 체크");
     try {
       const conn = await pool.getConnection();
 

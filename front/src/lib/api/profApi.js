@@ -98,7 +98,7 @@ const prof = {
   },
 
   getProblemLists: (video_num) => {
-    return fetch(CREATE_API + "problems/" + video_num, {
+    return fetch(CREATE_API + "prof/problems/" + video_num, {
       method: "get",
       headers: {
         "Content-type": "application/json",
@@ -108,7 +108,7 @@ const prof = {
 
   getProblemListByType: (video_num, type) => {
     console.log("fetch 체크");
-    return fetch(CREATE_API + "problems/" + video_num + "/" + type, {
+    return fetch(CREATE_API + "prof/problems/" + video_num + "/" + type, {
       method: "get",
       headers: {
         "Content-type": "application/json",

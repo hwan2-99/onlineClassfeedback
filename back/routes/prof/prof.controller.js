@@ -143,7 +143,7 @@ router.get("/problems/:video_num/:type", async (req, res) => {
   console.log("컨트롤러 체크");
 
   try {
-    const result = await getProblemListByType(video_num, type);
+    const result = await profService.getProblemListByType(video_num, type);
     res.json(result);
   } catch (error) {
     console.log(error);

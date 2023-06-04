@@ -1,15 +1,18 @@
 .TabMenu {
-  background-color: #dcdcdc;
   align-items: center;
   margin-bottom: 7rem;
+  width: 100%;
 }
 
-ul {
-  width: 100%;
+.TabMenu ul {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  background-color: rgb(185, 186, 187);
+  text-align: center;
+}
+
+.TabMenu li {
+  width: 100%;
+  transition-duration: 0.3s;
 }
 
 & div.desc {
