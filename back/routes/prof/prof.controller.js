@@ -144,7 +144,7 @@ router.get("/problems/:video_num/:type", async (req, res) => {
 
   try {
     const result = await profService.getProblemListByType(video_num, type);
-    res.json(result);
+    res.status(200).json(result);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });

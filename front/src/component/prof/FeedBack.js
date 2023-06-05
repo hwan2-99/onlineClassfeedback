@@ -16,7 +16,11 @@ const FeedBack = (props) => {
   const selectMenuHandler = async (index) => {
     clickTab(index);
     const selectedKey = menuArr[index].key; // 선택된 메뉴의 key 값 가져오기
-    await profHandler.getProblemListByType(video_num, selectedKey);
+    const result = await profHandler.getProblemListByType(
+      video_num,
+      selectedKey
+    );
+    console.log(result);
   };
 
   return (

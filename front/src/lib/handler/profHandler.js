@@ -159,10 +159,7 @@ const profHandler = {
     try {
       let apiResult = await prof.getProblemListByType(video_num, type);
       const result = await apiResult.json();
-
-      if (result.status === SUCCESS) {
-        return result;
-      }
+      return result;
     } catch (error) {
       console.log(error);
     }

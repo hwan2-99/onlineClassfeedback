@@ -369,10 +369,10 @@ const CourseVideo = () => {
           <h1>
             제{video_order} 강
             <br />
-            강의 명: {video_title},{video_filename}
+            강의 명: {video_title}
             <br />
           </h1>
-          비디오 번호: {video_num} / {video_filename}
+          비디오 번호: {video_num}
           <hr />
           <ReactPlayer
             width="inherit"
