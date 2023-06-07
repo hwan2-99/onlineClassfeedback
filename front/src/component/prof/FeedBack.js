@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./Feedback.module.css";
 import profHandler from "../../lib/handler/profHandler";
+import ChartFeedback from "../form/ChartFeedback";
 
 const FeedBack = (props) => {
   const { video_num } = props; // props로부터 video_num 값 가져오기
   const [currentTab, clickTab] = useState(0);
-
-  const menuArr = [
-    { key: "rest", name: "Rest", content: "Tab menu ONE" },
-    { key: "problem", name: "Problem", content: "Tab menu TWO" },
-    { key: "note", name: "Note", content: "Tab menu THREE" },
-    { key: "quality", name: "Quality", content: "Tab menu four" },
-  ];
+  const [menuArr, setMenuArr] = useState([
+    { key: "rest", name: "Rest", content: "Tab menu ONE", result: null },
+    { key: "problem", name: "Problem", content: "Tab menu TWO", result: null },
+    { key: "note", name: "Note", content: "Tab menu THREE", result: null },
+    { key: "quality", name: "Quality", content: "Tab menu four", result: null },
+  ]);
 
   const selectMenuHandler = async (index) => {
     clickTab(index);
@@ -21,6 +21,11 @@ const FeedBack = (props) => {
       selectedKey
     );
     console.log(result);
+
+    // Update the menuArr to include the result
+    const updatedMenuArr = [...menuArr];
+    updatedMenuArr[index].result = result;
+    setMenuArr(updatedMenuArr);
   };
 
   return (
@@ -42,7 +47,12 @@ const FeedBack = (props) => {
           ))}
         </ul>
         <div className={classes.desc}>
-          <p>{menuArr[currentTab].content}</p>
+          <p>{menuArr[currentTab].result}</p>
+          <ChartFeedback
+            video_num={video_num}
+            selectedKey={menuArr[currentTab].key}
+            content={menuArr[currentTab].result} // Pass the result as content
+          />
         </div>
       </div>
     </>

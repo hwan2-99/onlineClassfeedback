@@ -176,7 +176,7 @@ module.exports = {
 
       const query = `Select * from problem where video_num = ? and type = ?`;
 
-      const [[result]] = await conn.query(query, [video_num, type]);
+      const [result] = await conn.query(query, [video_num, type]);
       console.log(result);
       conn.release();
       return result;
